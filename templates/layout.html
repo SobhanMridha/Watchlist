@@ -14,13 +14,15 @@
       rel="stylesheet"
       type="text/css"
     />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <title>{% block title %}{% endblock %}</title>
-    <style>
-      @import url("https://fonts.googleapis.com/css2?family=Delius&display=swap");
-    </style>
   </head>
-  <body class="delius-regular">
+  <body class="font-opensans">
     <header>
       <div class="navbar bg-gray-800 text-gray-300 shadow-sm px-4">
         <!-- Left: Logo + Mobile Dropdown -->
@@ -71,11 +73,6 @@
 
         <!-- Right: Search + Auth Buttons -->
         <div class="navbar-end space-x-2">
-          <input
-            type="text"
-            placeholder="Search"
-            class="input input-sm bg-gray-700 text-white placeholder-gray-400 border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 w-24 md:w-40"
-          />
           <a
             class="btn btn-sm bg-blue-600 text-white hover:bg-blue-700"
             href="/register"
@@ -87,6 +84,17 @@
             >Log In</a
           >
         </div>
+      </div>
+
+      <div class="w-full space-y-4 absolute">
+        {% with messages = get_flashed_messages(with_categories=true) %} {% if
+        messages %} {% for category, message in messages %}
+        <div
+          class="text-center px-4 py-3 rounded relative {% if category == 'success' %} bg-green-100 text-green-800 {% elif category == 'error' %} bg-red-100 text-red-800 {% endif %}"
+        >
+          {{ message }}
+        </div>
+        {% endfor %} {% endif %} {% endwith %}
       </div>
     </header>
 
