@@ -1,6 +1,59 @@
 {% extends "layout.html" %} {% block title %} Home {% endblock %} {% block
 main%}
 
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
+  {% for movie in data['results'] %}
+  <div
+    class="max-w-md bg-gray-800 rounded-xl shadow-md overflow-hidden text-gray-300 p-4"
+  >
+    <!-- Movie Poster -->
+    <div class="w-full h-64 overflow-hidden rounded-lg">
+      <img
+        src="https://image.tmdb.org/t/p/w500{{ movie['poster_path'] }}"
+        alt="Movie Poster"
+        class="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-105"
+      />
+    </div>
 
+    <!-- Movie Details -->
+    <div class="mt-4 space-y-2">
+      <!-- Title & Rating -->
+      <div class="flex justify-between items-center">
+        <h2 class="text-2xl font-semibold text-white">{{movie['title']}}</h2>
+        <span
+          class="text-yellow-400 text-sm font-medium bg-gray-700 px-2 py-1 rounded"
+          >⭐ 8.5</span
+        >
+      </div>
+
+      <!-- Genre & Release Year -->
+      <div class="flex justify-between text-sm text-gray-400">
+        <span class="italic">Action, Adventure</span>
+        <span class="text-gray-400">{{movie["release_date"]}}</span>
+      </div>
+
+      <!-- Description -->
+      <p class="text-sm text-gray-400 leading-relaxed">
+        {{movie['overview']|truncate(120, True, '...')}}
+      </p>
+
+      <!-- Buttons -->
+      <div class="flex gap-3 mt-4">
+        <button
+          class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md text-sm font-medium transition"
+        >
+          + Add to Watchlist
+        </button>
+        <button
+          class="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 rounded-md text-sm font-medium transition"
+        >
+          ✓ Mark as Watched
+        </button>
+      </div>
+    </div>
+  </div>
+
+  {% endfor %}
+</div>
 
 {% endblock %}

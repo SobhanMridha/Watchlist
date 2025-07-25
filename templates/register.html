@@ -1,0 +1,44 @@
+{% extends "layout.html" %} {% block title %} Login {% endblock %} {% block main
+%}
+<form action="/register" method="post" class="flex justify-center items-center min-h-screen bg-gray-900">
+  <fieldset
+    class="w-80 border border-gray-700 rounded-lg bg-gray-800 p-6"
+  >
+    <legend class="text-lg font-semibold text-white mb-4">Register</legend>
+
+    <label class="block text-sm text-gray-300 mb-1">User Name</label>
+    <input
+      autocomplete="off"
+      type="text"
+      class="w-full px-4 py-2 mb-4 bg-gray-700 text-white placeholder-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+      name="username"
+      placeholder="Name"
+    />
+
+    <label class="block text-sm text-gray-300 mb-1">Password</label>
+    <input
+      type="password"
+      class="w-full px-4 py-2 mb-4 bg-gray-700 text-white placeholder-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+      name="password"
+      placeholder="Password"
+    />
+
+    <label class="block text-sm text-gray-300 mb-1">Confirm Password</label>
+    <input
+      type="password"
+      class="w-full px-4 py-2 mb-4 bg-gray-700 text-white placeholder-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+      name="confirm_password"
+      placeholder="Confirm Password"
+    />
+
+    <button
+      type="submit"
+      class="w-full py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-md transition"
+    >
+      Register
+    </button>
+  </fieldset>
+</form>
+
+
+{% endblock %}
