@@ -1,6 +1,7 @@
 import os
 import sqlite3
 import json
+from datetime import datetime
 from dotenv import load_dotenv
 from flask import Flask, flash, render_template, request, redirect, session, g
 from flask_session import Session
@@ -30,6 +31,21 @@ def close_db(exception):
     if db is not None:
         db.close()
 
+def add_movie(datas):
+    movies = []
+    for data in datas:
+        movie_id = data["movie_id"]
+        url = f"https://api.themoviedb.org/3/movie/{movie_id}"
+        params = {
+            'api_key': API_KEY,
+            'language': 'en-US'
+        }
+        res = requests.get(url, params=params)
+        movie_data = res.json()
+        if "status_code" not in movie_data:  # Check if the request was successful
+            movies.append(movie_data)
+    return movies
+
 with open("genres.json") as file:
     genres = json.load(file)
 
@@ -57,15 +73,28 @@ def index():
         data = res.json()
 
     elif selected_category:
-        url = f"https://api.themoviedb.org/3/movie/{selected_category}"
-        params = {
-            'api_key': API_KEY,
-            'language': 'en-US',
-            'page': 1
-        }
+        if selected_category == "upcoming":
+            next_year = datetime.now().year + 1
+            url = "https://api.themoviedb.org/3/discover/movie"
+            params = {
+                'api_key': API_KEY,
+                'language': 'en-US',
+                'primary_release_date.gte': f"{next_year}-01-01",
+                'page': 1
+            }
+            
+        else:
+            
+            url = f"https://api.themoviedb.org/3/movie/{selected_category}"
+            params = {
+                'api_key': API_KEY,
+                'language': 'en-US',
+                'page': 1
+            }
         res = requests.get(url, params=params)
         data = res.json()
     else:
+        selected_category = "Explore"
         url = "https://api.themoviedb.org/3/movie/now_playing"
         params = {
             'api_key': API_KEY,
@@ -74,7 +103,7 @@ def index():
         }
         res = requests.get(url, params=params)
         data = res.json()
-
+    
     return render_template("index.html", data=data, selected_category=selected_category, genres=genres)
 
 
@@ -83,16 +112,62 @@ def watchlist():
     if not session.get("user_id"):
         flash("You must be logged in to view this page.", "error")
         return redirect("/login")
+    
+    if request.method == "POST":
+        movie_id = request.form.get("movie_id")
+        user_id = session["user_id"]
+        
+        check = get_db().execute("SELECT * FROM watched WHERE user_id = ? AND movie_id = ?", (user_id, movie_id)).fetchone()
+        if check:
+            flash("This movie is already marked as watched. Please remove it from your watched list before adding to watchlist.", "error")
+            return redirect("/watched")
 
-    return render_template("watchlist.html")
+        try:
+            db = get_db()
+            db.execute("INSERT INTO watchlist (user_id, movie_id) VALUES (?, ?)", (user_id, movie_id))
+            db.commit()
+            flash("Movie added to watchlist!", "success")
+        except:
+            flash("This movie is already in your watchlist.", "error")
+        return redirect("/watchlist")
+
+
+    else:
+        user_id = session["user_id"]
+        datas = get_db().execute("SELECT movie_id FROM watchlist WHERE user_id = ?", (user_id,)).fetchall()
+        watchedlist = add_movie(datas)
+        return render_template("watchlist.html", watchedlist=watchedlist)
 
 @app.route("/watched", methods=["GET", "POST"])
 def watched():
     if not session.get("user_id"):
         flash("You must be logged in to view this page.", "error")
         return redirect("/login")
+    if request.method == "POST":
+        movie_id = request.form.get("movie_id")
+        user_id = session["user_id"]
 
-    return render_template("watched.html")
+        check = get_db().execute("SELECT * FROM watchlist WHERE user_id = ? AND movie_id = ?", (user_id, movie_id)).fetchone()
+        if check:
+            flash("This movie is already in your watchlist. Please remove it from your watchlist before marking as watched.", "error")
+            return redirect("/watchlist")
+        
+        try:
+            db = get_db()
+            db.execute("INSERT INTO watched (user_id, movie_id) VALUES (?, ?)", (user_id, movie_id))
+            db.commit()
+            flash("Movie marked as watched!", "success")
+        except:
+            flash("This movie is already marked as watched.", "error")
+        return redirect("/watched")
+        
+    
+    else:
+        user_id = session["user_id"]
+        datas = get_db().execute("SELECT movie_id FROM watched WHERE user_id = ?", (user_id,)).fetchall()
+        watched = add_movie(datas)
+        print(watched)
+        return render_template("watched.html", watched=watched)
 
 
 @app.route("/login", methods=["GET", "POST"])
