@@ -1,5 +1,6 @@
 import os
 import sqlite3
+import json
 from dotenv import load_dotenv
 from flask import Flask, flash, render_template, request, redirect, session, g
 from flask_session import Session
@@ -29,8 +30,8 @@ def close_db(exception):
     if db is not None:
         db.close()
 
-
-
+with open("genres.json") as file:
+    genres = json.load(file)
 
 
 
@@ -74,7 +75,7 @@ def index():
         res = requests.get(url, params=params)
         data = res.json()
 
-    return render_template("index.html", data=data, selected_category=selected_category)
+    return render_template("index.html", data=data, selected_category=selected_category, genres=genres)
 
 
 @app.route("/watchlist", methods=["GET", "POST"])

@@ -1,6 +1,48 @@
 {% extends "layout.html" %} {% block title %} Login {% endblock %} {% block main
 %}
 
+<div
+  class="max-w-md bg-gray-800 rounded-xl overflow-hidden shadow-lg text-gray-300 p-4"
+>
+  <div class="relative w-full h-64 overflow-hidden rounded-lg group shadow-md">
+    <img
+      src="https://m.media-amazon.com/images/I/71KPOvu-hOL._AC_SL1351_.jpg"
+      alt="Movie Poster"
+      class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+    />
+    <div
+      class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-60 group-hover:opacity-70 transition duration-300 rounded-lg"
+    ></div>
+  </div>
 
+  <div class="mt-4 space-y-3">
+    <div class="flex justify-between items-center">
+      <h2 class="text-2xl font-semibold text-white">Action Jackson</h2>
+      <span
+        class="text-yellow-400 text-sm font-semibold bg-gray-700 px-2 py-1 rounded"
+      >
+        ⭐ 7
+      </span>
+    </div>
+
+    <div class="flex justify-between text-sm text-gray-400">
+      <span class="italic">Action</span>
+      <span>📅 2024</span>
+    </div>
+
+    <p class="text-sm text-gray-400 leading-relaxed line-clamp-3">
+      None
+    </p>
+
+    <div class="flex justify-end pt-2">
+      <button
+        class="bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-md text-sm font-medium transition"
+        type="button"
+      >
+        Remove from Watched
+      </button>
+    </div>
+  </div>
+</div>
 
 {% endblock %}

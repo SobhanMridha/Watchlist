@@ -20,7 +20,9 @@ content %}
 <div
   class="flex flex-col md:flex-row justify-between items-center bg-gray-800 text-gray-200 py-5 px-6 rounded-lg space-y-4 md:space-y-0"
 >
-  <h1 id="section-title" class="text-3xl font-semibold">{{selected_category}}</h1>
+  <h1 id="section-title" class="text-3xl font-semibold">
+    {{selected_category}}
+  </h1>
 
   <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
     <form action="/">
@@ -57,8 +59,9 @@ content %}
   class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 justify-items-center gap-4 p-4"
 >
   {% for movie in data['results'] %}
+
   <div
-    class="max-w-md bg-gray-800 rounded-xl shadow-md overflow-hidden text-gray-300 p-4"
+    class="max-w-md w-full bg-gray-800 rounded-xl shadow-md overflow-hidden text-gray-300 p-4"
   >
     <!-- Movie Poster -->
     <div
@@ -67,7 +70,7 @@ content %}
       <img
         src="https://image.tmdb.org/t/p/w500{{ movie['poster_path'] }}"
         alt="Movie Poster"
-        class="w-full h-full object-contain"
+        class="w-full h-full object-contain transition-transform duration-500 hover:scale-105"
       />
     </div>
 
@@ -82,10 +85,17 @@ content %}
         >
       </div>
 
-      <!-- Genre & Release Year -->
       <div class="flex justify-between text-sm text-gray-400">
-        <span class="italic">Action, Adventure</span>
-        <span class="text-gray-400">{{movie["release_date"]}}</span>
+        <div class="flex flex-wrap gap-1">
+          {% for genre_id in movie['genre_ids'] %}
+          <span
+            class="px-2 py-0.5 kbd"
+          >
+            {{ genres[genre_id|string] }}
+          </span>
+          {% endfor %}
+        </div>
+        <span class="text-gray-400">{{ movie["release_date"][:4] }}</span>
       </div>
 
       <!-- Description -->

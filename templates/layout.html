@@ -25,7 +25,6 @@
   <body class="font-opensans">
     <header>
       <div class="navbar bg-gray-800 text-gray-300 shadow-sm px-4">
-        <!-- Left: Logo + Mobile Dropdown -->
         <div class="navbar-start">
           <div class="dropdown">
             <div
@@ -59,7 +58,7 @@
               <li><a href="/watched" class="hover:text-white">Watched</a></li>
             </ul>
           </div>
-          <a class="btn btn-ghost text-xl text-white">Watchlist</a>
+          <a href="/" class="btn btn-ghost text-xl text-white">Watchlist</a>
         </div>
 
         <!-- Center: Horizontal Menu -->
@@ -126,20 +125,74 @@
         </div>
       </nav>
 
-      <!-- Navigation Links -->
       <nav class="grid grid-flow-col gap-6 text-sm">
-        <a class="hover:underline hover:text-white cursor-pointer">About us</a>
-        <a class="hover:underline hover:text-white cursor-pointer">Contact</a>
-        <a class="hover:underline hover:text-white cursor-pointer">Jobs</a>
-        <a class="hover:underline hover:text-white cursor-pointer">Press kit</a>
+        <a
+          href="https://www.facebook.com/tanvir.mridha.56481"
+          target="_blank"
+          aria-label="Facebook"
+          class="hover:text-blue-500 transition duration-200"
+        >
+          <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+            <path
+              d="M9 8H6v4h3v12h5V12h3.642l.358-4H14V6.333C14 5.378 14.192 5 15.115 5H18V0h-3.808C10.596 0 9 1.583 9 4.615V8z"
+            />
+          </svg>
+        </a>
+
+        <a
+          href="https://github.com/SobhanMridha"
+          target="_blank"
+          aria-label="GitHub"
+          class="hover:text-white transition duration-200"
+        >
+          <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+            <path
+              d="M12 0C5.372 0 0 5.373 0 12c0 5.302 3.438 9.799 8.205 11.387.6.113.82-.26.82-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.082-.729.082-.729 1.205.084 1.84 1.236 1.84 1.236 1.07 1.834 2.807 1.304 3.492.997.108-.775.42-1.305.762-1.605-2.665-.305-5.466-1.333-5.466-5.931 0-1.31.469-2.381 1.236-3.221-.124-.304-.536-1.527.117-3.183 0 0 1.008-.322 3.3 1.23a11.506 11.506 0 013.003-.404 11.49 11.49 0 013.003.404c2.29-1.552 3.297-1.23 3.297-1.23.654 1.656.243 2.879.12 3.183.77.84 1.233 1.911 1.233 3.221 0 4.61-2.805 5.624-5.475 5.921.431.371.823 1.103.823 2.222v3.293c0 .32.216.694.825.576C20.565 21.796 24 17.298 24 12c0-6.627-5.373-12-12-12z"
+            />
+          </svg>
+        </a>
+
+        <a
+          href="https://www.linkedin.com/in/sobhanmridha/"
+          target="_blank"
+          aria-label="LinkedIn"
+          class="hover:text-blue-300 transition duration-200"
+        >
+          <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+            <path
+              d="M19 0h-14C2.243 0 0 2.243 0 5v14c0 2.757 2.243 5 5 5h14c2.756 0 5-2.243 5-5V5c0-2.757-2.244-5-5-5zM8 19H5v-9h3v9zM6.5 8C5.672 8 5 7.327 5 6.5S5.672 5 6.5 5 8 5.672 8 6.5 7.328 8 6.5 8zM20 19h-3v-4.5c0-2.07-2-1.91-2 0V19h-3v-9h3v1.108C15.708 9.028 18.085 8.983 20 11.327V19z"
+            />
+          </svg>
+        </a>
+
+        <a
+          href="https://codeforces.com/profile/ReMade"
+          target="_blank"
+          aria-label="Codeforces"
+          class="hover:text-yellow-200 transition duration-200"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            aria-hidden="true"
+            role="img"
+            class="text-2xl iconify iconify--simple-icons"
+            width="1em"
+            height="1em"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M4.5 7.5A1.5 1.5 0 0 1 6 9v10.5A1.5 1.5 0 0 1 4.5 21h-3C.673 21 0 20.328 0 19.5V9c0-.828.673-1.5 1.5-1.5zm9-4.5A1.5 1.5 0 0 1 15 4.5v15a1.5 1.5 0 0 1-1.5 1.5h-3c-.827 0-1.5-.672-1.5-1.5v-15c0-.828.673-1.5 1.5-1.5zm9 7.5A1.5 1.5 0 0 1 24 12v7.5a1.5 1.5 0 0 1-1.5 1.5h-3a1.5 1.5 0 0 1-1.5-1.5V12a1.5 1.5 0 0 1 1.5-1.5z"
+            ></path>
+          </svg>
+        </a>
       </nav>
 
-      <!-- Footer Text -->
       <aside class="text-sm text-gray-400 text-center">
         <p>&copy; <span id="year"></span> - All rights reserved by Me!!!</p>
       </aside>
 
-      <!-- Optional: Dynamic Year Script -->
       <script>
         document.getElementById("year").textContent = new Date().getFullYear();
       </script>

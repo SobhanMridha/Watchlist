@@ -1,5 +1,54 @@
 {% extends "layout.html" %} {% block title %} Login {% endblock %} {% block main
 %}
 
+<div
+  class="max-w-md bg-gray-800 rounded-xl overflow-hidden shadow-lg text-gray-300 p-4"
+>
+  <div class="relative w-full h-64 overflow-hidden rounded-lg group shadow-md">
+    <img
+      src="https://media-cache.cinematerial.com/p/500x/7ctjxpha/marco-indian-movie-poster.jpg?v=1735968360"
+      alt="Movie Poster"
+      class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+    />
+    <div
+      class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-60 group-hover:opacity-70 transition duration-300 rounded-lg"
+    ></div>
+  </div>
+
+  <div class="mt-4 space-y-3">
+    <div class="flex justify-between items-center">
+      <h2 class="text-2xl font-semibold text-white">Action Hero</h2>
+      <span
+        class="text-yellow-400 text-sm font-semibold bg-gray-700 px-2 py-1 rounded"
+      >
+        ⭐ 8.5
+      </span>
+    </div>
+
+    <div class="flex justify-between text-sm text-gray-400">
+      <span class="italic">Action</span>
+      <span>📅 2025</span>
+    </div>
+
+    <p class="text-sm text-gray-400 leading-relaxed line-clamp-3">
+      None
+    </p>
+
+    <div class="flex gap-3 pt-2">
+      <button
+        class="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 rounded-md text-sm font-medium transition"
+        type="button"
+      >
+        ✓ Add to Watched
+      </button>
+      <button
+        class="flex-1 bg-red-600 hover:bg-red-700 text-white py-2 rounded-md text-sm font-medium transition"
+        type="button"
+      >
+        Remove from Watchlist
+      </button>
+    </div>
+  </div>
+</div>
 
 {% endblock %}
