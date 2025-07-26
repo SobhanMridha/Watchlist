@@ -71,8 +71,15 @@
           </ul>
         </div>
 
-        <!-- Right: Search + Auth Buttons -->
         <div class="navbar-end space-x-2">
+          {% if session.get("user_id") %}
+
+          <a
+            class="btn btn-sm bg-blue-600 text-white hover:bg-blue-700"
+            href="/logout"
+            >Log Out</a
+          >
+          {% else %}
           <a
             class="btn btn-sm bg-blue-600 text-white hover:bg-blue-700"
             href="/register"
@@ -83,6 +90,7 @@
             href="/login"
             >Log In</a
           >
+          {% endif %}
         </div>
       </div>
 
@@ -98,7 +106,10 @@
       </div>
     </header>
 
-    <main>{% block main %} {% endblock %}</main>
+    <main>
+      {% block content %} {% endblock %} {% block bar %} {% endblock %} {% block
+      main %} {% endblock %}
+    </main>
 
     <footer
       class="bg-gray-800 text-gray-300 rounded p-10 flex flex-col items-center gap-6"

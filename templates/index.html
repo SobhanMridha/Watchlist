@@ -1,6 +1,5 @@
 {% extends "layout.html" %} {% block title %} Home {% endblock %} {% block
-main%}
-
+content %}
 <div
   class="relative h-screen bg-cover bg-center"
   style="background-image: url('../static/hero-img.jpg')"
@@ -17,13 +16,49 @@ main%}
     </p>
   </div>
 </div>
+{% endblock %} {% block bar %}
+<div
+  class="flex flex-col md:flex-row justify-between items-center bg-gray-800 text-gray-200 py-5 px-6 rounded-lg space-y-4 md:space-y-0"
+>
+  <h1 id="section-title" class="text-3xl font-semibold">{{selected_category}}</h1>
 
+  <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+    <form action="/">
+      <select
+        id="category-select"
+        name="category"
+        class="bg-gray-700 text-white px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+      >
+        <option value="" disabled selected hidden>Select Category…</option>
+        <option value="popular">Popular</option>
+        <option value="top_rated">Top Rated</option>
+        <option value="upcoming">Upcoming</option>
+      </select>
+
+      <input
+        id="search-input"
+        type="text"
+        name="title"
+        placeholder="Search by title…"
+        class="bg-gray-700 text-white placeholder-gray-400 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+      />
+      <button
+        type="submit"
+        class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md transition"
+      >
+        Search
+      </button>
+    </form>
+  </div>
+</div>
+
+{% endblock %} {% block main %}
 <div
   class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 justify-items-center gap-4 p-4"
 >
   {% for movie in data['results'] %}
   <div
-    class="max-w-md bg-gray-800 rounded-xl shadow-md overflow-hidden text-gray-300 p-4 "
+    class="max-w-md bg-gray-800 rounded-xl shadow-md overflow-hidden text-gray-300 p-4"
   >
     <!-- Movie Poster -->
     <div
@@ -76,5 +111,4 @@ main%}
 
   {% endfor %}
 </div>
-
 {% endblock %}
