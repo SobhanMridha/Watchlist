@@ -70,6 +70,7 @@ def index():
             'include_adult': False
         }
         res = requests.get(url, params=params)
+        selected_category = "Search"
         data = res.json()
 
     elif selected_category:
@@ -116,8 +117,8 @@ def watchlist():
     if request.method == "POST":
         movie_id = request.form.get("movie_id")
         user_id = session["user_id"]
-        
-        check = get_db().execute("SELECT * FROM watched WHERE user_id = ? AND movie_id = ?", (user_id, movie_id)).fetchone()
+        db = get_db()
+        check = db.execute("SELECT * FROM watched WHERE user_id = ? AND movie_id = ?", (user_id, movie_id)).fetchone()
         if check:
             flash("This movie is already marked as watched. Please remove it from your watched list before adding to watchlist.", "error")
             return redirect("/watched")
@@ -134,7 +135,8 @@ def watchlist():
 
     else:
         user_id = session["user_id"]
-        datas = get_db().execute("SELECT movie_id FROM watchlist WHERE user_id = ?", (user_id,)).fetchall()
+        db = get_db()
+        datas = db.execute("SELECT movie_id FROM watchlist WHERE user_id = ?", (user_id,)).fetchall()
         watchedlist = add_movie(datas)
         return render_template("watchlist.html", watchedlist=watchedlist)
 
@@ -146,8 +148,8 @@ def watched():
     if request.method == "POST":
         movie_id = request.form.get("movie_id")
         user_id = session["user_id"]
-
-        check = get_db().execute("SELECT * FROM watchlist WHERE user_id = ? AND movie_id = ?", (user_id, movie_id)).fetchone()
+        db = get_db()
+        check = db.execute("SELECT * FROM watchlist WHERE user_id = ? AND movie_id = ?", (user_id, movie_id)).fetchone()
         if check:
             flash("This movie is already in your watchlist. Please remove it from your watchlist before marking as watched.", "error")
             return redirect("/watchlist")
@@ -164,7 +166,8 @@ def watched():
     
     else:
         user_id = session["user_id"]
-        datas = get_db().execute("SELECT movie_id FROM watched WHERE user_id = ?", (user_id,)).fetchall()
+        db = get_db()
+        datas = db.execute("SELECT movie_id FROM watched WHERE user_id = ?", (user_id,)).fetchall()
         watched = add_movie(datas)
         print(watched)
         return render_template("watched.html", watched=watched)
@@ -242,16 +245,17 @@ def move():
     
     movie_id = request.form.get("movie_id")
     user_id = session["user_id"]
-
-    get_db().execute("DELETE FROM watchlist WHERE user_id = ? AND movie_id = ?", (user_id, movie_id))
-    get_db().commit()
+    db = get_db()
+    db.execute("DELETE FROM watchlist WHERE user_id = ? AND movie_id = ?", (user_id, movie_id))
+    db.commit()
     try:
-        get_db().execute("INSERT INTO watched (user_id, movie_id) VALUES (?, ?)", (user_id, movie_id))
-        get_db().commit()
+        db = get_db()
+        db.execute("INSERT INTO watched (user_id, movie_id) VALUES (?, ?)", (user_id, movie_id))
+        db.commit()
         flash("Movie moved to watched list.", "success")
     except:
         flash("This movie is already marked as watched.", "error")
-        
+
     return redirect("/watchlist")
  
 
@@ -267,14 +271,16 @@ def remove():
     user_id = session["user_id"]
 
     if table == "watchlist":
-        get_db().execute("DELETE FROM watchlist WHERE user_id = ? AND movie_id = ?", (user_id, movie_id))
-        get_db().commit()
+        db = get_db()
+        db.execute("DELETE FROM watchlist WHERE user_id = ? AND movie_id = ?", (user_id, movie_id))
+        db.commit()
         flash("Movie removed from watchlist.", "success")
         return redirect("/watchlist")
     
     if table == "watched":
-        get_db().execute("DELETE FROM watched WHERE user_id = ? AND movie_id = ?", (user_id, movie_id))
-        get_db().commit()
+        db = get_db()
+        db.execute("DELETE FROM watched WHERE user_id = ? AND movie_id = ?", (user_id, movie_id))
+        db.commit()
         flash("Movie removed from watched list.", "success")
         return redirect("/watched")
    
