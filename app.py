@@ -234,4 +234,50 @@ def register():
     return render_template("register.html")
 
 
+@app.route("/move", methods=["GET", "POST"])
+def move():
+    if not session.get("user_id"):
+        flash("You must be logged in to perform this action.", "error")
+        return redirect("/login")
+    
+    movie_id = request.form.get("movie_id")
+    user_id = session["user_id"]
+
+    get_db().execute("DELETE FROM watchlist WHERE user_id = ? AND movie_id = ?", (user_id, movie_id))
+    get_db().commit()
+    try:
+        get_db().execute("INSERT INTO watched (user_id, movie_id) VALUES (?, ?)", (user_id, movie_id))
+        get_db().commit()
+        flash("Movie moved to watched list.", "success")
+    except:
+        flash("This movie is already marked as watched.", "error")
+        
+    return redirect("/watchlist")
+ 
+
+
+@app.route("/remove", methods=["GET", "POST"])
+def remove():
+    if not session.get("user_id"):
+        flash("You must be logged in to perform this action.", "error")
+        return redirect("/login")
+    
+    table = request.form.get("table")
+    movie_id = request.form.get("movie_id")
+    user_id = session["user_id"]
+
+    if table == "watchlist":
+        get_db().execute("DELETE FROM watchlist WHERE user_id = ? AND movie_id = ?", (user_id, movie_id))
+        get_db().commit()
+        flash("Movie removed from watchlist.", "success")
+        return redirect("/watchlist")
+    
+    if table == "watched":
+        get_db().execute("DELETE FROM watched WHERE user_id = ? AND movie_id = ?", (user_id, movie_id))
+        get_db().commit()
+        flash("Movie removed from watched list.", "success")
+        return redirect("/watched")
+   
+    return redirect("/watched")
+
  

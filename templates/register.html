@@ -1,9 +1,11 @@
-{% extends "layout.html" %} {% block title %} Register {% endblock %} {% block main
-%}
-<form action="/register" method="post" class="flex justify-center items-center min-h-screen bg-gray-900">
-  <fieldset
-    class="w-80 border border-gray-700 rounded-lg bg-gray-800 p-6"
-  >
+{% extends "layout.html" %} {% block title %} Register {% endblock %} {% block
+main %}
+<form
+  action="/register"
+  method="post"
+  class="flex justify-center items-center min-h-screen bg-gray-900"
+>
+  <fieldset class="w-80 border border-gray-700 rounded-lg bg-gray-800 p-6">
     <legend class="text-lg font-semibold text-white mb-4">Register</legend>
 
     <label class="block text-sm text-gray-300 mb-1">User Name</label>
@@ -39,6 +41,5 @@
     </button>
   </fieldset>
 </form>
-
 
 {% endblock %}

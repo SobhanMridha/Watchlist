@@ -1,5 +1,6 @@
 {% extends "layout.html" %} {% block title %} Home {% endblock %} {% block
 content %}
+
 <div
   class="relative h-screen bg-cover bg-center"
   style="background-image: url('../static/hero-img.jpg')"
@@ -16,7 +17,9 @@ content %}
     </p>
   </div>
 </div>
+
 {% endblock %} {% block bar %}
+
 <div
   id="shown"
   class="flex flex-col gap-4 sm:gap-6 md:flex-row md:justify-between md:items-center bg-gray-800 text-gray-200 py-6 px-4 sm:px-6 rounded-lg"
@@ -61,6 +64,7 @@ content %}
 </div>
 
 {% endblock %} {% block main %}
+
 <div
   class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 justify-items-center gap-4 p-4"
 >
@@ -127,4 +131,5 @@ content %}
 
   {% endfor %}
 </div>
+
 {% endblock %}
