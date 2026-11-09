@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 from flask import Flask, flash, render_template, request, redirect, session, g
 from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
+from flask import send_from_directory
 import requests
 
 load_dotenv()
@@ -286,4 +287,9 @@ def remove():
    
     return redirect("/watched")
 
- 
+
+
+@app.route("/.well-known/<path:filename>")
+def well_known(filename):
+    return send_from_directory(".well-known", filename, mimetype="text/plain")
+
